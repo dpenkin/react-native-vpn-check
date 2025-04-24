@@ -14,6 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
+    // 👇 Вызовем сначала super (если вы наследуетесь от UIResponder, можно пропустить — но оставим как указано)
+    let didLaunchFinish = true
+
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
     delegate.dependencyProvider = RCTAppDependencyProvider()
@@ -29,7 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       launchOptions: launchOptions
     )
 
-    return true
+    RNSplashScreen.show()  // 👈 Показываем splash screen после запуска
+
+    return didLaunchFinish
   }
 }
 

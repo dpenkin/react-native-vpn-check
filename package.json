@@ -150,5 +150,8 @@
     "type": "legacy-module",
     "languages": "kotlin-swift",
     "version": "0.49.6"
+  },
+  "dependencies": {
+    "@react-native-community/netinfo": "11.4.1"
   }
 }

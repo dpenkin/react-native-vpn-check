@@ -1,22 +1,9 @@
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules } from 'react-native';
 
-const LINKING_ERROR =
-  `The package 'react-native-vpn-check' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
+const { VpnCheck } = NativeModules;
 
-const VpnCheck = NativeModules.VpnCheck
-  ? NativeModules.VpnCheck
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
-
-export function multiply(a: number, b: number): Promise<number> {
-  return VpnCheck.multiply(a, b);
+export function isVPNActive(): Promise<number> {
+  return VpnCheck.isVPNActive();
 }
+
+export const VPNStatusChanged = VpnCheck;

@@ -2,32 +2,80 @@
 
 Get current VPN status
 
-## Installation
+## Getting started
 
-```sh
-npm install react-native-vpn-check
-```
+`$ npm install react-native-vpn-check --save`
+
+or 
+
+`$ yarn add react-native-vpn-check`
+
+and 
+
+`$ cd ios && pod install`
+
 
 ## Usage
+```javascript
+import { isVPNActive } from 'react-native-vpn-check';
 
+* Example classic
 
-```js
-import { multiply } from 'react-native-vpn-check';
+async function getStatusVPN() {
+    const isStatus = await isVPNActive();
+}
 
-// ...
+getStatusVPN();
 
-const result = await multiply(3, 7);
+* Example Seamless transition to splash screen with vpn status
+
+Create your own custom splash screen identical to the application and add the status to the desired location
+Example of a splash screen in example/src/SplashScreen.tsx
+
+  const [showCustomSplashScreen, setShowCustomSplashScreen] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen?.hide();
+    }, 3000);
+  }, []);
+
+  if (showCustomSplashScreen) {
+    return <CustomSplashScreen />;
+  }
+
 ```
+```swift
+for ios AppDelegate.swift needs to be improved
 
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+  ) -> Bool {
 
-## Contributing
+    // 👇 Let's call super first (if you inherit from UIResponder, you can skip it - but leave it as specified)
+    let didLaunchFinish = true
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+    let delegate = ReactNativeDelegate()
+    let factory = RCTReactNativeFactory(delegate: delegate)
+    delegate.dependencyProvider = RCTAppDependencyProvider()
 
-## License
+    reactNativeDelegate = delegate
+    reactNativeFactory = factory
 
-MIT
+    window = UIWindow(frame: UIScreen.main.bounds)
 
----
+    factory.startReactNative(
+      withModuleName: "VpnCheckExample",
+      in: window,
+      launchOptions: launchOptions
+    )
 
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+    RNSplashScreen.show()  // 👈 Show splash screen after launch
+
+    return didLaunchFinish
+  }
+
+  Don't forget to add <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> for android in AndroidManifest.xml
+
+```
