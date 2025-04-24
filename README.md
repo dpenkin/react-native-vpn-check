@@ -45,6 +45,7 @@ Example of a splash screen in example/src/SplashScreen.tsx
   }
 
 ```
+<img src="https://github.com/dpenkin/react-native-vpn-check/blob/main/example.gif">
 ```swift
 for ios AppDelegate.swift needs to be improved
 
