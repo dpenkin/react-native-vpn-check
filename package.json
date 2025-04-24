@@ -1,6 +1,6 @@
 {
   "name": "react-native-vpn-check",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Get current VPN status",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
@@ -150,8 +150,5 @@
     "type": "legacy-module",
     "languages": "kotlin-swift",
     "version": "0.49.6"
-  },
-  "dependencies": {
-    "@react-native-community/netinfo": "11.4.1"
   }
 }
